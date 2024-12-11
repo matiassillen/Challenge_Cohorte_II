@@ -37,5 +37,10 @@ describe("testSaucedemo", { testIsolation: false }, () => {
     cy.scrollTo("bottom");
     cy.get('[data-test="finish"]').click();
     cy.scrollTo("top");
+
+    //Perform the logout
+    cy.get('[data-test="back-to-products"]').click();
+    cy.get(".bm-burger-button").click();
+    cy.get('[data-test="logout-sidebar-link"]').click();
   });
 });
