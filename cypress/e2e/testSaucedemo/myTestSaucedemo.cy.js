@@ -21,5 +21,15 @@ describe("testSaucedemo", { testIsolation: false }, () => {
       }
     });
     cy.get('[data-test="shopping-cart-link"]').click();
+
+    //Checkout
+
+    cy.scrollTo("bottom");
+    cy.get('[data-test="checkout"]').click();
+    cy.scrollTo("top");
+    cy.get('[data-test="firstName"]').type("Juan");
+    cy.get('[data-test="lastName"]').type("López");
+    cy.get('[data-test="postalCode"]').type("3200");
+    cy.get('[data-test="continue"]').click();
   });
 });
