@@ -31,5 +31,11 @@ describe("testSaucedemo", { testIsolation: false }, () => {
     cy.get('[data-test="lastName"]').type("López");
     cy.get('[data-test="postalCode"]').type("3200");
     cy.get('[data-test="continue"]').click();
+
+    // Validate that the Checkout has been completed
+
+    cy.scrollTo("bottom");
+    cy.get('[data-test="finish"]').click();
+    cy.scrollTo("top");
   });
 });
