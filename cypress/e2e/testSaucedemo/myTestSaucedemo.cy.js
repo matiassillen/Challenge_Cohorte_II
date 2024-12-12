@@ -53,5 +53,19 @@ describe("testSaucedemo", { testIsolation: false }, () => {
     cy.get('input[placeholder="Username"]').type("problem_user");
     cy.get('input[placeholder="Password"]').type("secret_sauce");
     cy.get("#login-button").click();
+
+    // Add products to cart
+
+    // Check and click on the items if they exist
+    cy.get("body").then(($body) => {
+      if ($body.find(".btn.btn_primary.btn_small.btn_inventory").length) {
+        cy.get(".btn.btn_primary.btn_small.btn_inventory").each(($btn) => {
+          cy.wrap($btn).click();
+        });
+      } else {
+        cy.log("No items were found with the specified class.");
+      }
+    });
+    cy.get('[data-test="shopping-cart-link"]').click();
   });
 });
