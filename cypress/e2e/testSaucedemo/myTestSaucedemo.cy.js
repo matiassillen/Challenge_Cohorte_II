@@ -6,18 +6,7 @@ describe("testSaucedemo", { testIsolation: false }, () => {
     cy.login("standard_user", "secret_sauce");
 
     // Add products to cart
-
-    // Check and click on the items if they exist
-    cy.get("body").then(($body) => {
-      if ($body.find(".btn.btn_primary.btn_small.btn_inventory").length) {
-        cy.get(".btn.btn_primary.btn_small.btn_inventory").each(($btn) => {
-          cy.wrap($btn).click();
-        });
-      } else {
-        cy.log("No items were found with the specified class.");
-      }
-    });
-    cy.get('[data-test="shopping-cart-link"]').click();
+    cy.addProductsToCart();
 
     //Checkout
 
@@ -48,18 +37,7 @@ describe("testSaucedemo", { testIsolation: false }, () => {
     cy.login("problem_user", "secret_sauce");
 
     // Add products to cart
-
-    // Check and click on the items if they exist
-    cy.get("body").then(($body) => {
-      if ($body.find(".btn.btn_primary.btn_small.btn_inventory").length) {
-        cy.get(".btn.btn_primary.btn_small.btn_inventory").each(($btn) => {
-          cy.wrap($btn).click();
-        });
-      } else {
-        cy.log("No items were found with the specified class.");
-      }
-    });
-    cy.get('[data-test="shopping-cart-link"]').click();
+    cy.addProductsToCart();
 
     //Checkout
 
@@ -69,7 +47,7 @@ describe("testSaucedemo", { testIsolation: false }, () => {
     cy.get('[data-test="firstName"]').type("Ana");
     cy.get('[data-test="lastName"]').type("Sanchez");
     cy.get('[data-test="postalCode"]').type("3200");
-    cy.get('[data-test="lastName"]').should("have.value", "Sanchez");
     cy.get('[data-test="continue"]').click();
+    cy.get('[data-test="lastName"]').should("have.value", "Sanchez");
   });
 });
