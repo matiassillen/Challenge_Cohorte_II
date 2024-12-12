@@ -67,5 +67,16 @@ describe("testSaucedemo", { testIsolation: false }, () => {
       }
     });
     cy.get('[data-test="shopping-cart-link"]').click();
+
+    //Checkout
+
+    cy.scrollTo("bottom");
+    cy.get('[data-test="checkout"]').click();
+    cy.scrollTo("top");
+    cy.get('[data-test="firstName"]').type("Ana");
+    cy.get('[data-test="lastName"]').type("Sanchez");
+    cy.get('[data-test="postalCode"]').type("3200");
+    cy.get('[data-test="lastName"]').should("have.value", "Sanchez");
+    cy.get('[data-test="continue"]').click();
   });
 });
