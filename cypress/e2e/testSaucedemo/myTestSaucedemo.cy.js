@@ -3,10 +3,7 @@ describe("testSaucedemo", { testIsolation: false }, () => {
     cy.visit("https://www.saucedemo.com/");
 
     // Login with the user "standard_user"
-
-    cy.get('input[placeholder="Username"]').type("standard_user");
-    cy.get('input[placeholder="Password"]').type("secret_sauce");
-    cy.get("#login-button").click();
+    cy.login("standard_user", "secret_sauce");
 
     // Add products to cart
 
@@ -45,14 +42,10 @@ describe("testSaucedemo", { testIsolation: false }, () => {
     cy.get('[data-test="logout-sidebar-link"]').click();
   });
 
-  it.only("Buy with user 2", () => {
-    cy.visit("https://www.saucedemo.com/");
-
+  it("Buy with user 2", () => {
     // Login with the user "problem_user"
 
-    cy.get('input[placeholder="Username"]').type("problem_user");
-    cy.get('input[placeholder="Password"]').type("secret_sauce");
-    cy.get("#login-button").click();
+    cy.login("problem_user", "secret_sauce");
 
     // Add products to cart
 
