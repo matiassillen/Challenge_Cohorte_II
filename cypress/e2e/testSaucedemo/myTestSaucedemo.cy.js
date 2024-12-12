@@ -10,14 +10,14 @@ describe("testSaucedemo", { testIsolation: false }, () => {
 
     // Add products to cart
 
-    // Verifica y hace clic en los elementos si existen
+    // Check and click on the items if they exist
     cy.get("body").then(($body) => {
       if ($body.find(".btn.btn_primary.btn_small.btn_inventory").length) {
         cy.get(".btn.btn_primary.btn_small.btn_inventory").each(($btn) => {
           cy.wrap($btn).click();
         });
       } else {
-        cy.log("No se encontraron elementos con la clase especificada.");
+        cy.log("No items were found with the specified class.");
       }
     });
     cy.get('[data-test="shopping-cart-link"]').click();
@@ -39,8 +39,19 @@ describe("testSaucedemo", { testIsolation: false }, () => {
     cy.scrollTo("top");
 
     //Perform the logout
+
     cy.get('[data-test="back-to-products"]').click();
     cy.get(".bm-burger-button").click();
     cy.get('[data-test="logout-sidebar-link"]').click();
+  });
+
+  it.only("Buy with user 2", () => {
+    cy.visit("https://www.saucedemo.com/");
+
+    // Login with the user "problem_user"
+
+    cy.get('input[placeholder="Username"]').type("problem_user");
+    cy.get('input[placeholder="Password"]').type("secret_sauce");
+    cy.get("#login-button").click();
   });
 });
