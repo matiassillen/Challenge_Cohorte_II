@@ -69,3 +69,13 @@ Cypress.Commands.add("validateCheckout", () => {
     .should("be.visible")
     .and("not.be.disabled");
 });
+
+// Command to Checkout
+Cypress.Commands.add("checkout", (username, lastname, postalcode) => {
+  cy.get('[data-test="checkout"]').click();
+  cy.scrollTo("top");
+  cy.get('[data-test="firstName"]').type(username);
+  cy.get('[data-test="lastName"]').type(lastname);
+  cy.get('[data-test="postalCode"]').type(postalcode);
+  cy.get('[data-test="continue"]').click();
+});
