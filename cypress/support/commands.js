@@ -31,7 +31,7 @@ Cypress.Commands.add("login", (username, password) => {
   cy.get("#login-button").click();
 });
 
-//Command to add products to the cart
+// Command to add products to the cart
 Cypress.Commands.add("addProductsToCart", () => {
   // Check and click on the items if they exist
   cy.get("body").then(($body) => {
@@ -44,4 +44,28 @@ Cypress.Commands.add("addProductsToCart", () => {
     }
   });
   cy.get('[data-test="shopping-cart-link"]').click();
+});
+
+// Command to validate that the checkout has been completed
+Cypress.Commands.add("validateCheckout", () => {
+  cy.get('[data-test="finish"]').should("be.visible").and("not.be.disabled");
+  cy.get('[data-test="finish"]').click();
+
+  cy.get('[data-test="title"]')
+    .should("be.visible")
+    .and("contain", "Checkout: Complete!");
+
+  cy.get('[data-test="pony-express"]').should("be.visible");
+  cy.get('[data-test="complete-header"]')
+    .should("be.visible")
+    .and("contain", "Thank you for your order!");
+  cy.get('[data-test="complete-text"]')
+    .should("be.visible")
+    .and(
+      "contain",
+      "Your order has been dispatched, and will arrive just as fast as the pony can get there!"
+    );
+  cy.get('[data-test="back-to-products"]')
+    .should("be.visible")
+    .and("not.be.disabled");
 });

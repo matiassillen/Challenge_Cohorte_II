@@ -1,14 +1,16 @@
 describe("testSaucedemo", { testIsolation: false }, () => {
-  it("Buy with user 1", () => {
+  it.only("Buy with user 1", () => {
     cy.visit("https://www.saucedemo.com/");
 
-    // Login with the user "standard_user"
+    // *** Login with the user "standard_user" ***
+
     cy.login("standard_user", "secret_sauce");
 
-    // Add products to cart
+    // *** Add products to cart ***
+
     cy.addProductsToCart();
 
-    //Checkout
+    // *** Checkout ***
 
     cy.scrollTo("bottom");
     cy.get('[data-test="checkout"]').click();
@@ -18,13 +20,13 @@ describe("testSaucedemo", { testIsolation: false }, () => {
     cy.get('[data-test="postalCode"]').type("3200");
     cy.get('[data-test="continue"]').click();
 
-    // Validate that the Checkout has been completed
+    // *** Validate that the Checkout has been completed ***
 
     cy.scrollTo("bottom");
-    cy.get('[data-test="finish"]').click();
+    cy.validateCheckout();
     cy.scrollTo("top");
 
-    //Perform the logout
+    // *** Perform the logout ***
 
     cy.get('[data-test="back-to-products"]').click();
     cy.get(".bm-burger-button").click();
@@ -32,14 +34,15 @@ describe("testSaucedemo", { testIsolation: false }, () => {
   });
 
   it("Buy with user 2", () => {
-    // Login with the user "problem_user"
+    // *** Login with the user "problem_user" ***
 
     cy.login("problem_user", "secret_sauce");
 
-    // Add products to cart
+    // *** Add products to cart ***
+
     cy.addProductsToCart();
 
-    //Checkout
+    // *** Checkout ***
 
     cy.scrollTo("bottom");
     cy.get('[data-test="checkout"]').click();
