@@ -24,7 +24,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-// Command to log in with any user
+// Command to login with any user
 Cypress.Commands.add("login", (username, password) => {
   cy.get('input[placeholder="Username"]').type(username);
   cy.get('input[placeholder="Password"]').type(password);
@@ -46,11 +46,20 @@ Cypress.Commands.add("addProductsToCart", () => {
   cy.get('[data-test="shopping-cart-link"]').click();
 });
 
+// Command to Checkout
+Cypress.Commands.add("checkout", (username, lastname, postalcode) => {
+  cy.get('[data-test="checkout"]').click();
+  cy.scrollTo("top");
+  cy.get('[data-test="firstName"]').type(username);
+  cy.get('[data-test="lastName"]').type(lastname);
+  cy.get('[data-test="postalCode"]').type(postalcode);
+  cy.get('[data-test="continue"]').click();
+});
+
 // Command to validate that the checkout has been completed
 Cypress.Commands.add("validateCheckout", () => {
   cy.get('[data-test="finish"]').should("be.visible").and("not.be.disabled");
   cy.get('[data-test="finish"]').click();
-
   cy.get('[data-test="title"]')
     .should("be.visible")
     .and("contain", "Checkout: Complete!");
@@ -68,14 +77,4 @@ Cypress.Commands.add("validateCheckout", () => {
   cy.get('[data-test="back-to-products"]')
     .should("be.visible")
     .and("not.be.disabled");
-});
-
-// Command to Checkout
-Cypress.Commands.add("checkout", (username, lastname, postalcode) => {
-  cy.get('[data-test="checkout"]').click();
-  cy.scrollTo("top");
-  cy.get('[data-test="firstName"]').type(username);
-  cy.get('[data-test="lastName"]').type(lastname);
-  cy.get('[data-test="postalCode"]').type(postalcode);
-  cy.get('[data-test="continue"]').click();
 });
